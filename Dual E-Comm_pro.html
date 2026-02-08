@@ -4,411 +4,638 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EcoPaws STORE - Eco-Friendly Pet Supplies & Curated Art</title>
+    <title>EcoPaws STORE | Sustainable Pet Goods & Curated Art</title>
+    <meta name="description"
+        content="The dual e-commerce platform for eco-friendly pet supplies and curated pet art prints.">
 
-    <!-- Bootstrap v5.3.6 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Sans:wght@400;500&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;700&display=swap"
         rel="stylesheet">
 
     <style>
-        /* VISUAL PHYSICS & CUSTOM PROPERTIES */
+        /* -------------------------------------------------------------
+        1. FOUNDATION & VARIABLES (WCAG 2.2 AA+REM)
+        -------------------------------------------------------------
+        */
         :root {
-            /* 60% Primary (Neutral/Cool) - A sense of calm, clean, textured paper */
-            --bg-primary: #F8F7F4;
-            /* 30% Secondary (Cool Gray) - Grounding element for text and structure */
-            --text-primary: #2c3e50;
-            --text-secondary: #4A5759;
-            /* 10% Accent (Warm, Opposite Temperature) - High-contrast for interaction */
-            --accent-warm: #E57A44;
-            --accent-warm-hover: #d66a33;
-            /* Typography System */
-            --font-heading: 'Archivo Black', sans-serif;
-            --font-body: 'IBM Plex Sans', sans-serif;
+            /* Palette: Organic Brutalism */
+            --color-paper: #F5F2EB;
+            /* Warm Neutral Background */
+            --color-ink: #1A2622;
+            /* Deep Forest/Black Text (High Contrast) */
+            --color-accent: #C8553D;
+            /* Burnt Sienna (Action/Heat) */
+            --color-surface: #EBE6DC;
+            /* Slightly darker paper for cards */
+            --color-stroke: #D6CEC0;
+            /* Borders */
+            /* Typography */
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Manrope', sans-serif;
+            /* Spacing Scale (8pt grid based) */
+            --space-xs: 0.5rem;
+            /* 8px */
+            --space-sm: 1rem;
+            /* 16px */
+            --space-md: 2rem;
+            /* 32px */
+            --space-lg: 4rem;
+            /* 64px */
+            --space-xl: 8rem;
+            /* 128px */
+            /* Grid */
+            --grid-gutter: 2rem;
+            --max-width: 1280px;
+            /* Animation Physics */
+            --transition-smooth: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* Reset & Base */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
+            background-color: var(--color-paper);
+            color: var(--color-ink);
             font-family: var(--font-body);
-            /* Subtle grain texture for a material feel */
-            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NzU0ODc4MjQ2RjcwMTFFQUI1RDU5MEQzODA4NzgyRDEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NzU0ODc4MjU2RjcwMTFFQUI1RDU5MEQzODA4NzgyRDEiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo3NTQ4NzgyMjZGNzAxMUVBQjVENzkwRDM4MDg3ODJEMSIsInN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NzU0ODc4MjM2RjcwMTFFQUI1RDU5MEQzODA4NzgyRDEiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4AAADASURBVHjaYvz//z8DJQAggJiQ2BjIgAFGMGLAATEYDC4GMgBdhAx4XAEIIBYgK0GgBqIGCAMWAAHEBCAbIKgBDSgMWAAIIBbArIBAzQANKAxYAAQQA3ASEKgBagE2oDBgARBAXIAJBaIWIA0oDFgABBADcAIgaoA2EAxYAAQQF2CgQKJmQAUoDFgABBATIBsgaoE2EAxYAAQQFzCgBKIWlAYsAAIIBJDhhyAItQAbUBiwAAggJsAMAJFi2NAasAAIIBACHgABBgCt0hGtu1A0bAAAAABJRU5ErkJggg==');
-        }
-
-        /* Fluid Typography Overrides */
-        h1,
-        .h1 {
-            font-family: var(--font-heading);
-            /* clamp(min, preferred, max) */
-            font-size: clamp(2.5rem, 5vw + 1rem, 4.5rem);
-            font-weight: 900;
-            line-height: 1.1;
-        }
-
-        h2,
-        .h2 {
-            font-family: var(--font-heading);
-            font-size: clamp(2rem, 4vw + 1rem, 3.5rem);
-            line-height: 1.2;
-        }
-
-        h3,
-        .h3 {
-            font-family: var(--font-heading);
-            font-size: clamp(1.5rem, 3vw + 0.5rem, 2.25rem);
-        }
-
-        p,
-        a,
-        li,
-        span {
-            font-size: clamp(1rem, 1vw + 0.5rem, 1.1rem);
             line-height: 1.6;
+            font-size: 1rem;
+            /* 16px base */
+            overflow-x: hidden;
+            /* Texture Overlay: Grain */
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
         }
 
-        /* Kinetic Hover States & Component Styling */
+        /* Typography Hierarchy (Fluid Type) */
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw + 1rem, 4.5rem);
+            margin-bottom: var(--space-sm);
+        }
+
+        h2 {
+            font-size: clamp(2rem, 3vw + 1rem, 3rem);
+            margin-bottom: var(--space-sm);
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: var(--space-xs);
+        }
+
+        p {
+            font-size: 1.125rem;
+            color: rgba(26, 38, 34, 0.85);
+            /* Accessible grey */
+            max-width: 60ch;
+        }
+
+        /* Utility Components */
+        .container {
+            width: 90%;
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
         .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2rem;
             font-family: var(--font-body);
-            font-weight: 500;
-            padding: 12px 28px;
-            border-radius: 8px;
-            transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.2s ease-in-out;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            border: 1px solid transparent;
             min-height: 48px;
-            /* Accessibility: tap target size */
+            /* Mobile touch target */
         }
 
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        .btn-primary {
+            background-color: var(--color-accent);
+            color: white;
+            border-radius: 4px;
+            /* Slight softening */
         }
 
-        .btn-warm {
-            background-color: var(--accent-warm);
-            color: var(--bg-primary);
-            border: 1px solid var(--accent-warm);
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(200, 85, 61, 0.4);
         }
 
-        .btn-warm:hover {
-            background-color: var(--accent-warm-hover);
-            border-color: var(--accent-warm-hover);
-            color: var(--bg-primary);
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--color-ink);
+            border: 1px solid var(--color-ink);
+            border-radius: 4px;
         }
 
-        .btn-outline-dark {
-            border-color: var(--text-primary);
-            color: var(--text-primary);
-            border-width: 2px;
+        .btn-secondary:hover {
+            background-color: var(--color-ink);
+            color: white;
         }
 
-        .btn-outline-dark:hover {
-            background-color: var(--text-primary);
-            color: var(--bg-primary);
+        .section-padding {
+            padding: var(--space-lg) 0;
         }
 
-        .hero-section {
-            background: url('https://images.unsplash.com/photo-1588943211346-0908a1fb0b01?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center;
-            background-size: cover;
+        /* -------------------------------------------------------------
+        2. HERO SECTION (Architecture: The Promise)
+        -------------------------------------------------------------
+        */
+        .hero {
             min-height: 90vh;
+            display: grid;
+            grid-template-columns: 1fr;
+            align-items: center;
+            position: relative;
+            padding-top: var(--space-lg);
+        }
+
+        .hero-content {
+            display: grid;
+            gap: var(--space-md);
+            z-index: 2;
+        }
+
+        .hero-btn-group {
+            display: flex;
+            gap: var(--space-sm);
+            flex-wrap: wrap;
+        }
+
+        /* Visual Metaphor: The Framed Reality */
+        .hero-image-wrapper {
+            width: 100%;
+            height: 50vh;
+            margin-top: var(--space-md);
+            border-radius: 1rem;
+            overflow: hidden;
+            position: relative;
+            background: #ddd;
+            /* Placeholder */
+        }
+
+        .hero-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Placeholder styling simulating the requested image */
+            background: url('https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=2688&auto=format&fit=crop') center/cover no-repeat;
+        }
+
+        @media (min-width: 992px) {
+            .hero {
+                grid-template-columns: 1fr 1fr;
+                gap: var(--space-lg);
+                height: 100vh;
+                padding-top: 0;
+            }
+
+            .hero-image-wrapper {
+                height: 85%;
+                margin-top: 0;
+            }
+        }
+
+        /* -------------------------------------------------------------
+        3. KEY FEATURES (Architecture: Value Stack)
+        -------------------------------------------------------------
+        */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-md);
+            margin-top: var(--space-md);
+        }
+
+        .feature-card {
+            background: var(--color-surface);
+            padding: var(--space-md);
+            border: 1px solid var(--color-stroke);
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        /* Physicality: Lift on hover */
+        .feature-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--color-ink);
+        }
+
+        .icon-box {
+            font-size: 1.5rem;
+            margin-bottom: var(--space-sm);
+            color: var(--color-accent);
+        }
+
+        /* -------------------------------------------------------------
+        4. SPLIT SECTION (Architecture: The Choice)
+        -------------------------------------------------------------
+        */
+        .split-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .split-col {
+            padding: var(--space-lg) var(--space-md);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-bottom: 1px solid var(--color-ink);
+        }
+
+        .split-col:first-child {
+            background-color: #E6EAD6;
+            /* Subtle Organic Green Hint */
+        }
+
+        .split-col:last-child {
+            background-color: #ECE9E4;
+            /* Subtle Paper Hint */
+        }
+
+        @media (min-width: 992px) {
+            .split-section {
+                flex-direction: row;
+                height: 80vh;
+                /* Immersive height */
+            }
+
+            .split-col {
+                border-bottom: none;
+                padding: var(--space-xl) var(--space-lg);
+            }
+
+            .split-col:first-child {
+                border-right: 1px solid var(--color-ink);
+            }
+        }
+
+        /* -------------------------------------------------------------
+        5. BENEFITS & STATS (Architecture: Social Proof)
+        -------------------------------------------------------------
+        */
+        .stats-bar {
+            background-color: var(--color-ink);
+            color: var(--color-paper);
+            padding: var(--space-md) 0;
+        }
+
+        .stats-grid {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 2.5rem;
+            color: var(--color-accent);
+            margin-bottom: 0;
+        }
+
+        .stat-item p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        @media (min-width: 768px) {
+            .stats-grid {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+
+        /* -------------------------------------------------------------
+        6. COLLECTION CARDS (Architecture: Transformation)
+        -------------------------------------------------------------
+        */
+        .collections-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-md);
+        }
+
+        @media (min-width: 600px) {
+            .collections-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .collections-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .collection-card {
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: var(--color-ink);
+            group: hover;
+        }
+
+        .collection-img {
+            width: 100%;
+            aspect-ratio: 3/4;
+            background-color: #ddd;
+            margin-bottom: var(--space-sm);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Placeholder Images */
+        .c-img-1 {
+            background: url('https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=500&q=80') center/cover;
+        }
+
+        .c-img-2 {
+            background: url('https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=500&q=80') center/cover;
+        }
+
+        .c-img-3 {
+            background: url('https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=500&q=80') center/cover;
+        }
+
+        .c-img-4 {
+            background: url('https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=500&q=80') center/cover;
+        }
+
+        .collection-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .cta-link {
+            margin-top: auto;
+            color: var(--color-accent);
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
             display: flex;
             align-items: center;
+            gap: 0.5rem;
         }
 
-        .hero-overlay {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 1rem;
-            padding: 2rem;
+        /* -------------------------------------------------------------
+        7. FINAL CTA & FOOTER
+        -------------------------------------------------------------
+        */
+        .final-cta {
+            background-color: var(--color-ink);
+            color: var(--color-paper);
+            text-align: center;
+            padding: var(--space-xl) var(--space-md);
         }
 
-        .feature-icon {
-            font-size: 2.5rem;
-            color: var(--accent-warm);
+        .final-cta h2 {
+            color: white;
         }
 
-        .split-section-img {
-            min-height: 400px;
-            background-size: cover;
-            background-position: center;
-            border-radius: .75rem;
+        .final-cta p {
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0 auto var(--space-md) auto;
         }
 
-        .card-custom {
-            border: 1px solid #e0e0e0;
-            border-radius: 1rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            background-color: #ffffff;
+        .footer {
+            border-top: 1px solid var(--color-stroke);
+            padding: var(--space-md) 0;
+            font-size: 0.875rem;
+        }
+
+        /* Accessibility Utilities */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
             overflow: hidden;
-        }
-
-        .card-custom:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(44, 62, 80, 0.12);
-        }
-
-        .card-custom .card-body {
-            z-index: 2;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
         }
     </style>
 </head>
 
 <body>
 
-    <!-- 1. HERO SECTION -->
-    <header class="hero-section text-white">
-        <div class="container py-5">
-            <div class="row">
-                <div class="col-lg-8 col-md-10">
-                    <div class="hero-overlay">
-                        <h1 class="display-3">Discover EcoPaws STORE: Your dual e-commerce platform for eco-friendly pet
-                            supplies and curated pet art prints</h1>
-                        <p class="lead mt-4 mb-5">Shop with purpose: where unbeatable convenience meets sustainable
-                            living for you and your pet.</p>
-                        <a href="#" class="btn btn-warm btn-lg me-sm-3 mb-3 mb-sm-0">Shop Pet Supplies</a>
-                        <a href="#" class="btn btn-outline-light btn-lg">Browse Art Prints</a>
-                    </div>
-                </div>
+    <header class="hero container">
+        <div class="hero-content">
+            <h1>Discover EcoPaws STORE: <br><i>Your Home. Their Habitat.</i></h1>
+            <p>The dual e-commerce platform uniting eco-friendly pet supplies with curated, pet-themed fine art. Shop
+                with purpose—where unbeatable convenience meets sustainable living.</p>
+
+            <div class="hero-btn-group">
+                <a href="#supplies" class="btn btn-primary">Shop Pet Supplies</a>
+                <a href="#art" class="btn btn-secondary">Browse Art Prints</a>
+            </div>
+
+            <p style="font-size: 0.875rem; opacity: 0.7; margin-top: var(--space-xs);">
+                Trusted by 10,000+ Pet Owners • Carbon Neutral Shipping
+            </p>
+        </div>
+
+        <div class="hero-image-wrapper">
+            <div class="hero-img" role="img"
+                aria-label="A modern living room with natural light showing a dog playing with a hemp toy, with a vibrant framed dog art print on the wall.">
             </div>
         </div>
     </header>
 
-    <main>
-        <!-- 2. KEY FEATURES SECTION -->
-        <section class="py-5">
-            <div class="container text-center">
-                <h2 class="mb-5">Designed for Pet and Art Lovers</h2>
-                <div class="row gy-5">
-                    <div class="col-md-3 col-sm-6">
-                        <i class="bi bi-shop-window feature-icon mb-3"></i>
-                        <h4 class="h5">Two Stores in One</h4>
-                        <p class="text-secondary">Unites pet needs and home aesthetics.</p>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <i class="bi bi-gem feature-icon mb-3"></i>
-                        <h4 class="h5">Curated Collections</h4>
-                        <p class="text-secondary">Expertly vetted for style and ethics.</p>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <i class="bi bi-leaf feature-icon mb-3"></i>
-                        <h4 class="h5">Product Sustainability</h4>
-                        <p class="text-secondary">Eco-conscious without compromising durability.</p>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <i class="bi bi-shield-lock feature-icon mb-3"></i>
-                        <h4 class="h5">Secure Payments</h4>
-                        <p class="text-secondary">Industry-leading encryption.</p>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <i class="bi bi-person-check feature-icon mb-3"></i>
-                        <h4 class="h5">Personalized Recommendations</h4>
-                        <p class="text-secondary">Tailored to breed and design tastes.</p>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <i class="bi bi-devices feature-icon mb-3"></i>
-                        <h4 class="h5">Omnichannel Shopping</h4>
-                        <p class="text-secondary">Seamless experience on mobile and desktop.</p>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <i class="bi bi-truck feature-icon mb-3"></i>
-                        <h4 class="h5">Fast Shipping</h4>
-                        <p class="text-secondary">Optimized logistics for essential goods.</p>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <i class="bi bi-patch-check feature-icon mb-3"></i>
-                        <h4 class="h5">Trusted Partnerships</h4>
-                        <p class="text-secondary">Reliable and diverse supply chain.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <section class="section-padding container">
+        <h2 style="text-align: center;">Designed for Pet & Art Lovers</h2>
+        <div class="features-grid">
 
-        <!-- 3. FEATURES SPLIT SECTION -->
-        <section class="py-5">
-            <div class="container">
-                <div class="row align-items-center g-5">
-                    <div class="col-lg-6">
-                        <h3 class="h2">Pet Supplies: A Sustainable Approach</h3>
-                        <p class="text-secondary mt-3">We focus on essential supplies: eco-friendly collars, leashes,
-                            toys, and grooming kits. We source from trusted brands, solving the problem of finding
-                            high-quality, non-toxic products.</p>
-                        <a href="#" class="btn btn-outline-dark mt-3">Explore Pet Supplies</a>
-                    </div>
-                    <div class="col-lg-6 split-section-img"
-                        style="background-image: url('https://images.unsplash.com/photo-1599383832442-75b2737039cd?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"
-                        role="img" aria-label="A dog playing with an eco-friendly rope toy.">
-                    </div>
-                </div>
-                <div class="row align-items-center g-5 mt-4 flex-lg-row-reverse">
-                    <div class="col-lg-6">
-                        <h3 class="h2">Posters & Prints: Aesthetic Emotionality</h3>
-                        <p class="text-secondary mt-3">Celebrating the human-pet bond through carefully selected
-                            minimalist and vibrant illustrations. Made with high-quality, eco-friendly materials to
-                            match sophisticated home decor.</p>
-                        <a href="#" class="btn btn-outline-dark mt-3">View Art Gallery</a>
-                    </div>
-                    <div class="col-lg-6 split-section-img"
-                        style="background-image: url('https://images.unsplash.com/photo-1541944743827-7f023773c38b?q=80&w=2603&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"
-                        role="img" aria-label="A modern room with a pet-themed art print on the wall.">
-                    </div>
-                </div>
+            <div class="feature-card">
+                <div class="icon-box">✦</div>
+                <h3>Two Stores in One</h3>
+                <p>Unites pet needs and home aesthetics in a single checkout.</p>
             </div>
-        </section>
 
-        <!-- 4. BENEFITS SECTION -->
-        <section class="py-5 bg-white">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-8 text-center">
-                        <h2 class="mb-5">Why Customers Love Us</h2>
-                        <div class="row">
-                            <div class="col-md-6 text-start">
-                                <ul class="list-unstyled">
-                                    <li class="mb-3 d-flex"><i
-                                            class="bi bi-check-circle-fill text-success me-2 mt-1"></i>Convenience:
-                                        Manage daily gear and home decor in one place.</li>
-                                    <li class="mb-3 d-flex"><i
-                                            class="bi bi-check-circle-fill text-success me-2 mt-1"></i>Eco-Living: Every
-                                        purchase supports a healthier planet.</li>
-                                    <li class="mb-3 d-flex"><i
-                                            class="bi bi-check-circle-fill text-success me-2 mt-1"></i>Unique
-                                        Collections: Exclusive artworks not found in big-box stores.</li>
-                                </ul>
-                            </div>
-                            <div class="col-md-6 text-start">
-                                <ul class="list-unstyled">
-                                    <li class="mb-3 d-flex"><i
-                                            class="bi bi-check-circle-fill text-success me-2 mt-1"></i>Secure Payments:
-                                        Complete peace of mind.</li>
-                                    <li class="mb-3 d-flex"><i
-                                            class="bi bi-check-circle-fill text-success me-2 mt-1"></i>Personalization:
-                                        A tailored shopping journey.</li>
-                                    <li class="mb-3 d-flex"><i
-                                            class="bi bi-check-circle-fill text-success me-2 mt-1"></i>Reliable Delivery
-                                        & Supplier Partnership.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="feature-card">
+                <div class="icon-box">★</div>
+                <h3>Curated Collections</h3>
+                <p>Expertly vetted for style and ethics. No generic plastic.</p>
             </div>
-        </section>
 
-        <!-- 5. SOCIAL PROOF / STATS BAR -->
-        <section class="py-5">
-            <div class="container">
-                <div class="row text-center">
-                    <div class="col-6 col-lg-3 mb-4 mb-lg-0">
-                        <h3 class="h1" style="color: var(--accent-warm);">10,000+</h3>
-                        <p class="text-secondary">happy pets</p>
-                    </div>
-                    <div class="col-6 col-lg-3 mb-4 mb-lg-0">
-                        <h3 class="h1" style="color: var(--accent-warm);">5,000+</h3>
-                        <p class="text-secondary">prints delivered</p>
-                    </div>
-                    <div class="col-6 col-lg-3">
-                        <h3 class="h1" style="color: var(--accent-warm);">85%</h3>
-                        <p class="text-secondary">eco-friendly product line</p>
-                    </div>
-                    <div class="col-6 col-lg-3">
-                        <h3 class="h1" style="color: var(--accent-warm);">4.8/5</h3>
-                        <p class="text-secondary">customer rating</p>
-                    </div>
-                </div>
+            <div class="feature-card">
+                <div class="icon-box">♻</div>
+                <h3>Product Sustainability</h3>
+                <p>Eco-conscious materials without compromising durability.</p>
             </div>
-        </section>
 
-        <!-- 6. COLLECTION CARDS -->
-        <section class="py-5 bg-white">
-            <div class="container">
-                <h2 class="text-center mb-5">Explore Our Collections</h2>
-                <div class="row g-4">
-                    <div class="col-lg-3 col-md-6">
-                        <div class="card card-custom h-100">
-                            <img src="https://images.unsplash.com/photo-1623992398305-6d0253503a46?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                class="card-img-top" alt="Collage of eco-friendly hemp collars and toys."
-                                style="height: 200px; object-fit: cover;">
-                            <div class="card-body d-flex flex-column">
-                                <h4 class="h5">Eco-Friendly Pet Essentials</h4>
-                                <p class="text-secondary flex-grow-1">The core collection for the modern owner.</p>
-                                <a href="#" class="btn btn-outline-dark mt-auto">Shop Essentials</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="card card-custom h-100">
-                            <img src="https://images.unsplash.com/photo-1541944743827-7f023773c38b?q=80&w=2603&auto=format&fit=crop"
-                                class="card-img-top" alt="A cozy room featuring stylish pet-themed wall art."
-                                style="height: 200px; object-fit: cover;">
-                            <div class="card-body d-flex flex-column">
-                                <h4 class="h5">Posters & Prints</h4>
-                                <p class="text-secondary flex-grow-1">Transform your space with art that speaks to your
-                                    soul.</p>
-                                <a href="#" class="btn btn-outline-dark mt-auto">View Gallery</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="card card-custom h-100">
-                            <img src="https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                class="card-img-top" alt="Close-up of a secure mobile checkout screen on a phone."
-                                style="height: 200px; object-fit: cover;">
-                            <div class="card-body d-flex flex-column">
-                                <h4 class="h5">Secure Shopping</h4>
-                                <p class="text-secondary flex-grow-1">Bank-level encryption for complete privacy.</p>
-                                <a href="#" class="btn btn-outline-dark mt-auto">Learn About Security</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="card card-custom h-100">
-                            <img src="https://images.unsplash.com/photo-1534351450285-1aa2f36098c4?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                class="card-img-top" alt="A happy dog in a park with travel gear."
-                                style="height: 200px; object-fit: cover;">
-                            <div class="card-body d-flex flex-column">
-                                <h4 class="h5">Customer Favorites</h4>
-                                <p class="text-secondary flex-grow-1">Trending items loved by thousands.</p>
-                                <a href="#" class="btn btn-outline-dark mt-auto">See Favorites</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="feature-card">
+                <div class="icon-box">🔒</div>
+                <h3>Secure Payments</h3>
+                <p>Industry-leading encryption for total peace of mind.</p>
             </div>
-        </section>
 
-        <!-- 7. FINAL CALL TO ACTION -->
-        <section class="py-5 text-center">
-            <div class="container">
-                <h2 class="mb-3">Ready to Explore EcoPaws STORE?</h2>
-                <div class="row justify-content-center">
-                    <div class="col-lg-7">
-                        <p class="text-secondary">Treat pets to premium, eco-friendly gear. Adorn your walls with
-                            curated pet-themed art. Support the planet with eco-conscious choices.</p>
-                        <div class="d-flex flex-wrap justify-content-center gap-2 mt-4">
-                            <a href="#" class="btn btn-warm">Shop Pet Supplies</a>
-                            <a href="#" class="btn btn-outline-dark">Browse Art Prints</a>
-                            <a href="#" class="btn btn-outline-secondary">Join the Community</a>
-                        </div>
-                    </div>
-                </div>
+            <div class="feature-card">
+                <div class="icon-box">♥</div>
+                <h3>Personalized</h3>
+                <p>Recommendations tailored to specific breeds and design tastes.</p>
             </div>
-        </section>
-    </main>
 
-    <!-- FOOTER -->
-    <footer class="py-4" style="background-color: #f1f1f1;">
-        <div class="container text-center">
-            <p class="mb-0 text-secondary">&copy; 2026 EcoPaws STORE. All Rights Reserved.</p>
+            <div class="feature-card">
+                <div class="icon-box">⚡</div>
+                <h3>Fast Shipping</h3>
+                <p>Optimized logistics for essential goods. Get it when you need it.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="split-section" id="split-nav">
+        <article class="split-col">
+            <span style="text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.85rem; margin-bottom: 1rem;">The
+                Essentials</span>
+            <h2>Pet Supplies: <br>A Sustainable Approach</h2>
+            <p style="margin-bottom: 2rem;">We focus on essential supplies: eco-friendly collars, leashes, toys, and
+                grooming kits. We source from trusted brands, solving the problem of finding high-quality, non-toxic
+                products.</p>
+            <a href="#supplies" class="btn btn-primary" style="align-self: flex-start;">Shop Essentials</a>
+        </article>
+
+        <article class="split-col">
+            <span style="text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.85rem; margin-bottom: 1rem;">The
+                Aesthetics</span>
+            <h2>Posters & Prints: <br>Aesthetic Emotionality</h2>
+            <p style="margin-bottom: 2rem;">Celebrating the human-pet bond through carefully selected minimalist and
+                vibrant illustrations. Made with high-quality, eco-friendly materials to match sophisticated home decor.
+            </p>
+            <a href="#art" class="btn btn-secondary" style="align-self: flex-start;">View Gallery</a>
+        </article>
+    </section>
+
+    <section class="section-padding container">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <h2 style="margin-bottom: var(--space-md);">Why Customers Love Us</h2>
+            <ul style="list-style: none; display: grid; gap: 1rem;">
+                <li style="display: flex; gap: 1rem; align-items: flex-start;">
+                    <span style="color: var(--color-accent); font-weight: bold;">✓</span>
+                    <div><strong>Convenience:</strong> Manage daily gear and home decor in one place.</div>
+                </li>
+                <li style="display: flex; gap: 1rem; align-items: flex-start;">
+                    <span style="color: var(--color-accent); font-weight: bold;">✓</span>
+                    <div><strong>Eco-Living:</strong> Every purchase supports a healthier planet.</div>
+                </li>
+                <li style="display: flex; gap: 1rem; align-items: flex-start;">
+                    <span style="color: var(--color-accent); font-weight: bold;">✓</span>
+                    <div><strong>Unique Collections:</strong> Exclusive artworks not found in big-box stores.</div>
+                </li>
+                <li style="display: flex; gap: 1rem; align-items: flex-start;">
+                    <span style="color: var(--color-accent); font-weight: bold;">✓</span>
+                    <div><strong>Supplier Partnership:</strong> A rigorous vetting process for quality.</div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="stats-bar">
+        <div class="container stats-grid">
+            <div class="stat-item">
+                <h3>10,000+</h3>
+                <p>Happy Pets</p>
+            </div>
+            <div class="stat-item">
+                <h3>5,000+</h3>
+                <p>Prints Delivered</p>
+            </div>
+            <div class="stat-item">
+                <h3>85%</h3>
+                <p>Eco-Friendly</p>
+            </div>
+            <div class="stat-item">
+                <h3>4.8/5</h3>
+                <p>Customer Rating</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding container">
+        <h2 style="margin-bottom: var(--space-md);">Explore The Collections</h2>
+        <div class="collections-grid">
+            <a href="#" class="collection-card">
+                <div class="collection-img c-img-1" aria-label="Collage of hemp collars and toys"></div>
+                <h3>Pet Essentials</h3>
+                <p style="font-size: 0.9rem;">The core collection for the modern owner.</p>
+                <div class="cta-link">Shop Essentials &rarr;</div>
+            </a>
+
+            <a href="#" class="collection-card">
+                <div class="collection-img c-img-2" aria-label="Cozy room with pet-themed wall art"></div>
+                <h3>Posters & Prints</h3>
+                <p style="font-size: 0.9rem;">Transform your space with art that speaks to your soul.</p>
+                <div class="cta-link">View Gallery &rarr;</div>
+            </a>
+
+            <a href="#" class="collection-card">
+                <div class="collection-img c-img-3" aria-label="Close up of secure mobile checkout"></div>
+                <h3>Secure Shopping</h3>
+                <p style="font-size: 0.9rem;">Bank-level encryption for complete privacy.</p>
+                <div class="cta-link">Learn About Security &rarr;</div>
+            </a>
+
+            <a href="#" class="collection-card">
+                <div class="collection-img c-img-4" aria-label="Dog in a park with travel gear"></div>
+                <h3>Customer Favorites</h3>
+                <p style="font-size: 0.9rem;">Trending items loved by thousands.</p>
+                <div class="cta-link">See Favorites &rarr;</div>
+            </a>
+        </div>
+    </section>
+
+    <section class="final-cta">
+        <div class="container">
+            <h1>Ready to Explore EcoPaws?</h1>
+            <p>Treat pets to premium eco-friendly gear, adorn your walls, and support the planet.</p>
+            <div class="hero-btn-group" style="justify-content: center;">
+                <button class="btn btn-primary"
+                    style="background-color: var(--color-paper); color: var(--color-ink);">Shop Pet Supplies</button>
+                <button class="btn btn-secondary"
+                    style="border-color: var(--color-paper); color: var(--color-paper);">Browse Art Prints</button>
+            </div>
+            <div style="margin-top: var(--space-md);">
+                <a href="#" style="color: rgba(255,255,255,0.6); text-decoration: underline;">Or Join the Community</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="container footer">
+        <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+            <div>&copy; 2024 EcoPaws STORE. All rights reserved.</div>
+            <div style="display: flex; gap: 1.5rem;">
+                <a href="#" style="color: inherit; text-decoration: none;">Privacy</a>
+                <a href="#" style="color: inherit; text-decoration: none;">Terms</a>
+                <a href="#" style="color: inherit; text-decoration: none;">Instagram</a>
+            </div>
         </div>
     </footer>
 
-    <!-- Bootstrap v5.3.6 JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
 </body>
 
 </html>
