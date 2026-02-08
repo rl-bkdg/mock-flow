@@ -12,12 +12,15 @@ jobs:
                -d '{
                  "embeds": [{
                    "title": "🏗️ GitHub Build Dispatched",
+                   "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
                    "description": "The public build for **${{ github.repository }}** is now live.",
                    "color": 3447003,
                    "fields": [
-                     { "name": "Commit", "value": "${{ github.event.head_commit.message }}", "inline": false },
-                     { "name": "Status", "value": "✅ Success", "inline": true }
-                   ]
+                     { "name": "Commit Message", "value": "${{ github.event.head_commit.message }}", "inline": false },
+                     { "name": "Branch", "value": "`${{ github.ref_name }}`", "inline": true },
+                     { "name": "Action Logs", "value": "[Click here to view logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})", "inline": true }
+                   ],
+                   "footer": { "text": "GitHub Actions Automation" }
                  }]
                }' \
                ${{ secrets.DISCORD_WEBHOOK_URL }}
