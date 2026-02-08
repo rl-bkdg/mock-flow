@@ -1,0 +1,23 @@
+name: Dispatch Build Status
+on: [push]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Dispatch to Discord
+        run: |
+          curl -H "Content-Type: application/json" \
+               -X POST \
+               -d '{
+                 "embeds": [{
+                   "title": "🏗️ GitHub Build Dispatched",
+                   "description": "The public build for **${{ github.repository }}** is now live.",
+                   "color": 3447003,
+                   "fields": [
+                     { "name": "Commit", "value": "${{ github.event.head_commit.message }}", "inline": false },
+                     { "name": "Status", "value": "✅ Success", "inline": true }
+                   ]
+                 }]
+               }' \
+               ${{ secrets.DISCORD_WEBHOOK_URL }}
