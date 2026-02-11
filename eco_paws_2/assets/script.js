@@ -20,8 +20,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. Mobile Menu Toggle
     // Handles the mobile menu state that was managed by React's useState(false)
-    const menuBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
+    // const menuBtn = document.getElementById('mobile-menu-btn');
+    const menuBtn = document.querySelector('[code-path="src/sections/Navigation.tsx:64:13"]');
+    // const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenu = document.querySelector('[code-path="src/sections/Navigation.tsx:80:7"]');
+
     let isMenuOpen = false;
 
     if (menuBtn && mobileMenu) {
