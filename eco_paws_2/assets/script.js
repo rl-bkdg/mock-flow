@@ -1,6 +1,6 @@
 /**
  * EcoPaws Custom Script
- * Replaces ReactJS logic with Vanilla JavaScript 1
+ * Replaces ReactJS logic with Vanilla JavaScript
  */
 
 document.addEventListener('DOMContentLoaded', () => {
